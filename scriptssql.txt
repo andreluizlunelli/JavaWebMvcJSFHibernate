@@ -1,0 +1,37 @@
+/* sql:1 */
+CREATE TABLE `Lancamento` (
+  `oid` INT NOT NULL,
+  `dt_inicial` DATETIME NULL,
+  `dt_final` DATETIME NULL,
+  `vl_total` DECIMAL(8,2) NULL,
+  `observacao` TEXT(1000) NULL,
+  PRIMARY KEY (`oid`))
+ENGINE = InnoDB;
+
+/* sql:2 */
+CREATE TABLE `Item` (
+  `oid` INT NOT NULL,
+  `descricao` VARCHAR(255) NULL,
+  `valor` DECIMAL(8,2) NULL,
+  PRIMARY KEY (`oid`))
+ENGINE = InnoDB;
+
+/* sql:3 */
+CREATE TABLE IF NOT EXISTS `LancamentoItem` (
+  `oid_lancamento` INT(11) NOT NULL,
+  `oid_item` INT(11) NOT NULL,
+  PRIMARY KEY (`oid_lancamento`, `oid_item`),
+  INDEX `fk_Lancamento_has_Item_Item1_idx` (`oid_item` ASC),
+  INDEX `fk_Lancamento_has_Item_Lancamento_idx` (`oid_lancamento` ASC),
+  CONSTRAINT `fk_Lancamento_has_Item_Lancamento`
+    FOREIGN KEY (`oid_lancamento`)
+    REFERENCES `Lancamento` (`oid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Lancamento_has_Item_Item1`
+    FOREIGN KEY (`oid_item`)
+    REFERENCES `Item` (`oid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
