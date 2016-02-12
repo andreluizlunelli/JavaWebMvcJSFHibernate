@@ -8,6 +8,7 @@ package br.com.andreluizlunelli.webmvc.controller.managedbean.item;
 import br.com.andreluizlunelli.webmvc.model.dao.ItemDao;
 import br.com.andreluizlunelli.webmvc.model.entity.Item;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
 /**
@@ -17,9 +18,19 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class ListarItemMB {
     private ItemDao itemDao = new ItemDao();
-    
-    public List<Item> obterLista() {
-        return itemDao.getAll();
+    private static List<Item> listaItens = null;
+
+    public List<Item> getListaItens() {
+        if (listaItens == null) {
+            listaItens = itemDao.getAll();
+        }
+        return listaItens;
     }
+
+    public void setListaItens(List<Item> listaItem) {
+        this.listaItens = listaItem;
+    }
+    
+    
         
 }
