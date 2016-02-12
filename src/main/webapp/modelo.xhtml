@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
+        <title>Locação de Livros</title>
+    </h:head>
+
+    <h:body>
+
+<!--        <f:view locale="#{i18nMB.locale}">
+            <div style="float: right;">
+                <h:form>
+                    <h:commandLink value="Português" action="#{i18nMB.portugues}"/> |
+                    <h:commandLink value="Inglês" action="#{i18nMB.ingles}"/> |
+                    <h:commandLink value="Sair" action="#{loginMB.sair()}" />
+                </h:form>
+            </div>
+        </f:view>-->
+
+
+        <!--<div style="margin: 0 auto; width: 800px; height: auto; float: left">-->
+        <div>
+            <!--            <div id="top" >
+                            <a href="index.jsf"><h2>Locação de Livro Online</h2></a>                
+                        </div>-->
+            <!--                <div id="left">
+                                <h:form id="frm_menu">
+                                    <p:toolbar>
+                                        <p:toolbarGroup>
+                                            <p:growl id="messages"/>
+                                              <h3>Menu Principal</h3>  
+                                              <p:menu>  
+                                                  <p:submenu label="Livro">  
+                                                      <p:menuitem value="#{msg.Consulta}" action="#{livroMB.go_livro_consulta()}" />  
+                                                      <p:menuitem value="#{msg.Cadastro}" action="#{livroMB.go_livro_cadastro()}" />  
+                                                  </p:submenu>  
+                                                  <p:submenu label="Cliente">  
+                                                      <p:menuitem value="#{msg.Consulta}" action="#{clienteMB.go_cliente_consulta()}" />  
+                                                      <p:menuitem value="#{msg.Cadastro}" action="#{clienteMB.go_cliente_cadastro()}" />  
+                                                  </p:submenu>  
+                                                  <p:submenu label="Locação">  
+                                                      <p:menuitem value="#{msg.Consulta}" action="#{locacaoMB.go_locacao_consulta()}" />  
+                                                      <p:menuitem value="#{msg.Locacao}" action="#{locacaoMB.go_locacao_cadastro()}" />  
+                                                  </p:submenu>  
+                                              </p:menu>  
+                                        </p:toolbarGroup>
+                                    </p:toolbar>
+                                </h:form>
+                            </div>-->
+            <div id="content" class="right_content">
+                <h:form id="frm_main">
+                    <!--                       <ui:insert name="content">Content</ui:insert>-->
+                    <p:dataTable value="#{listarItemMB.obterLista}" var="c"
+                                 paginator="true" rows="5"
+                                 paginatorAlwaysVisible="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="Nada cadastrado...">
+                        <p:column>
+                            <f:facet name="header">#</f:facet>
+                                #{c.id}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Descrição</f:facet>
+                                #{c.descricao}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Valor</f:facet>
+                                #{c.valor}
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+
+            <div id="bottom">
+                Developed by andreluizlunelli
+            </div>
+
+        </div>
+
+    </h:body>
+
+</html>
