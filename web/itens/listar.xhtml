@@ -20,13 +20,12 @@
             <div id="content" class="right_content">
                 <h:form id="frm_main">
                     
-                    <p:dataTable value="#{listarItemMB.obterLista()}" var="c"
+                    <p:dataTable id="tabelaItens" value="#{listarItemMB.obterLista()}" var="c"
                                  paginator="true" rows="5"
                                  paginatorAlwaysVisible="false"
                                  paginatorPosition="bottom"
-                                 emptyMessage="Nada cadastrado..."
-                                 sortOrder="desc">
-                        <p:column>
+                                 emptyMessage="Nada cadastrado...">
+                        <p:column sortBy="#{c.id}" id="filtroId" filterBy="#{c.id}" filterMatchMode="exact" headerText="ID">
                             <f:facet name="header">#</f:facet>
                                 #{c.id}
                         </p:column>
