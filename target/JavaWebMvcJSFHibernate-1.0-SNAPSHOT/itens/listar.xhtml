@@ -13,8 +13,8 @@
     <h:body>
         <div>            
             <div id="content" class="right_content">
-                <h:form id="form">
-                    <p:panel header="Create a new book" style="margin-bottom:20px">
+                <h:form id="formSalvar">
+                    <p:panel header="Novo item" style="margin-bottom:20px">
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputLabel value="Descrição : *" for="descricao"></h:outputLabel>
                             <p:inputText id="descricao" value="#{itemMB.item.descricao}" required="true"/>
@@ -22,12 +22,15 @@
                             <h:outputLabel value="Valor: *" for="valor"></h:outputLabel>
                             <p:inputText id="valor" value="#{itemMB.item.valor}" required="true"/>
 
-                            <p:commandButton id="btn_reset" value="Reset" type="reset"/>                            
-                            <p:commandButton id="btn_add" value="Add" update="panelItens msgs @parent" action="#{itemMB.reiniciarPanel}" type="submit" >
-                                <p:collector value="#{itemMB.item}" addTo="#{itemMB.listaItens}" unique="true"/>
-                            </p:commandButton>
+                            <p:commandButton id="btn_reset" value="Limpar campos" type="reset"/>                            
+                            <p:commandButton id="btn_novo" value="Gravar novo" type="submit" action="#{itemMB.salvarItem}" ajax="false" />                            
+<!--                            <p:commandButton id="btn_add" value="Add" update=":form:panelItens :form:msgs @parent" action="# {itemMB.reiniciarPanel}" type="submit" >
+                                <p:collector value="# {itemMB.item}" addTo="# {itemMB.listaItens}" unique="true"/>
+                            </p:commandButton>-->
                         </h:panelGrid>
                     </p:panel>
+                </h:form>
+                <h:form id="form">
                     <p:growl id="msgs" showDetail="true"/>
                     <p:outputPanel id="panelItens">
                         <p:contextMenu for="lista1">
@@ -45,9 +48,7 @@
                                      emptyMessage="Nada cadastrado..."
                                      sortBy="#{i.id}"
                                      sortOrder="DESCENDING"
-                                     rowKey="#{i.id}"
-                                     selection="#{dtContextMenuView.selectedCar}"
-                                     selectionMode="single"
+                                     rowKey="#{i.id}"                                                                         
                                      >
                             <f:facet name="header">
                                 Registros
@@ -67,14 +68,14 @@
                             <p:column headerText="Valor">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{i.valor}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{i.valor}" style="width:100%" label="Valor"/></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{i.valor}" style="width:100%" label="Valor" /></f:facet>
                                 </p:cellEditor>
                             </p:column>
-                            <p:column headerText="Ações" style="width:15%">                                
+                            <p:column headerText="Editar" style="width:6%">                                
                                 <p:rowEditor />                                                                      
-                                <p:commandLink value="Remove" update=":form:panelItens" process=":form:panelItens" style="font-size: 11px">
-                                    <p:collector value="#{i}" removeFrom="#{itemMB.listaItens}" unique="true"/>
-                                </p:commandLink>
+                            </p:column> 
+                            <p:column headerText="Excluir" style="width:6%">                                
+                                <p:commandButton  value="x" action="#{itemMB.excluirItem(i)}" onclick="return confirm('Confirma a exclusão?');" ajax="false"/>
                             </p:column>
                         </p:dataTable>
                     </p:outputPanel>

@@ -70,18 +70,18 @@ public class ItemMB {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public String salvarItem() {
+    public void salvarItem() {
         try {
             itemDao.save(item);
             item = new Item();
-            msg = new FacesMessage("Item cadastrado com sucesso");
+            msg = new FacesMessage("Cadastro", "Item cadastrado com sucesso");
             this.setListaItens(null);
             this.getListaItens();
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro no cadastro, tente mais tarde.", null);
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        return "listar";
+//        return "listar";
     }
 
     public String reiniciarPanel() {
@@ -89,13 +89,13 @@ public class ItemMB {
         return null;
     }
 
-    public void excluirItem() {
+    public void excluirItem(Item i) {
         try {
-            if (listaItens.contains(item)) {
-                itemDao.delete(item);
-                listaItens.remove(item);
+            if (listaItens.contains(i)) {
+                itemDao.delete(i);
+                listaItens.remove(i);
                 item = new Item();
-                msg = new FacesMessage("Item excluído com sucesso");
+                msg = new FacesMessage("Exclusão", "Item excluído com sucesso");
             }
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro no cadastro, tente mais tarde.", null);
