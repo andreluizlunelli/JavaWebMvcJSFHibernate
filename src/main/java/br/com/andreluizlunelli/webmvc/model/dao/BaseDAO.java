@@ -40,15 +40,15 @@ public class BaseDAO {
         return o;
     }
     
-    public void inserir(Object o) {
+    protected void inserir(Object o) {
         executar(o, Operacao.INSERIR);
     }
 
-    public Object salvar(Object o) {
+    protected Object salvar(Object o) {
         return executar(o, Operacao.SALVAR);
     }
 
-    public void excluir(Object o) {
+    protected void excluir(Object o) {
         executar(o, Operacao.EXCLUIR);
     }
     

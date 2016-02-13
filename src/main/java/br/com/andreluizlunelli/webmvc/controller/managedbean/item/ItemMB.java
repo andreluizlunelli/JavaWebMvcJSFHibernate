@@ -9,16 +9,38 @@ import br.com.andreluizlunelli.webmvc.model.dao.ItemDao;
 import br.com.andreluizlunelli.webmvc.model.entity.Item;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
  * @author ANDRE
  */
 @ManagedBean
-public class ListarItemMB {
-    private ItemDao itemDao = new ItemDao();
-    private static List<Item> listaItens = null;
+@ViewScoped
+public class ItemMB {
+
+    FacesMessage msg = null;
+    private ItemDao itemDao;
+    private Item item;
+    private static List<Item> listaItens;
+
+    @PostConstruct
+    public void init() {
+        item = new Item();
+        itemDao = new ItemDao();
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
 
     public List<Item> getListaItens() {
         if (listaItens == null) {
@@ -30,7 +52,54 @@ public class ListarItemMB {
     public void setListaItens(List<Item> listaItem) {
         this.listaItens = listaItem;
     }
-    
-    
-        
+
+    public void onEditarLinha(RowEditEvent event) {
+        Item itemEditado = (Item) event.getObject();
+        try {
+            itemDao.save(itemEditado);
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item editado", (String.valueOf((itemEditado.getId()))));
+        } catch (Exception e) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro na edição, tente mais tarde.", (String.valueOf((itemEditado.getId()))));
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCancelarEdicaoLinha(RowEditEvent event) {
+        Item itemEditado = (Item) event.getObject();
+        msg = new FacesMessage("Edição cancelada", (String.valueOf((itemEditado.getId()))));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public String salvarItem() {
+        try {
+            itemDao.save(item);
+            item = new Item();
+            msg = new FacesMessage("Item cadastrado com sucesso");
+            this.setListaItens(null);
+            this.getListaItens();
+        } catch (Exception e) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro no cadastro, tente mais tarde.", null);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return "listar";
+    }
+
+    public String reiniciarPanel() {
+        item = new Item();
+        return null;
+    }
+
+    public void excluirItem() {
+        try {
+            if (listaItens.contains(item)) {
+                itemDao.delete(item);
+                listaItens.remove(item);
+                item = new Item();
+                msg = new FacesMessage("Item excluído com sucesso");
+            }
+        } catch (Exception e) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro no cadastro, tente mais tarde.", null);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 }

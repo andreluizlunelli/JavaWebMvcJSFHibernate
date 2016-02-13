@@ -1,6 +1,8 @@
 
 package br.com.andreluizlunelli.webmvc.model.entity;
 
+import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Item.findAll", query = "SELECT c FROM Item c"),
     @NamedQuery(name = "Item.find", query = "SELECT i FROM Item i WHERE i.id = ?")
 })
-public class Item {
+public class Item implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,6 +57,36 @@ public class Item {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Item other = (Item) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.valor) != Double.doubleToLongBits(other.valor)) {
+            return false;
+        }
+        if (!Objects.equals(this.descricao, other.descricao)) {
+            return false;
+        }
+        return true;
     }
 
     
