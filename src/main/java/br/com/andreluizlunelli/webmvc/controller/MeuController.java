@@ -46,7 +46,7 @@ public class MeuController {
         Item item = new Item();
         item.setValor(16.58);
         item.setDescricao("descricao de teste de item");
-        itemDao.inserir(item);
+//        itemDao.inserir(item);
     }
 
 
