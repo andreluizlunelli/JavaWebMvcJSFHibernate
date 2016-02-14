@@ -14,6 +14,22 @@
         <load-on-startup>1</load-on-startup>
     </servlet>    
     <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>        
+        <url-pattern>*.xhtml</url-pattern>
+        <!--<url-pattern>*</url-pattern>-->
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+    
+    
+    <!--configuracao originao-->
+    <!--    <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
@@ -24,5 +40,5 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
-    </welcome-file-list>
+    </welcome-file-list>-->
 </web-app>
