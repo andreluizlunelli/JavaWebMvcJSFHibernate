@@ -17,5 +17,5 @@ public class ViewUtil {
     public static String dateToStr(Date d) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(d);
-    }
+    }    
 }

@@ -24,10 +24,13 @@
         </h:form>
         <h:form id="form">
             <p:growl id="msgs" showDetail="true"/>
-            <p:outputPanel id="panelItens">                
+            <p:outputPanel id="panelLancamento">      
+                <p:contextMenu for="lista1">
+                    <p:menuitem value="Excluir" update="lista1" icon="ui-icon-close" actionListener="#{itemMB.excluirItem}"/>
+                </p:contextMenu>
                 <p:dataTable id="lista1"
                              var="l" 
-                             value="#{lancamentoMB.listaLancamentoParserViews}" 
+                             value="#{lancamentoMB.listaLancamento}" 
                              editable="true" 
                              style="margin-bottom:20px"
                              paginator="true" rows="10"
@@ -49,13 +52,21 @@
                     </p:column>
                     <p:column headerText="Dta inicial">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{l.dataInicial}" /></f:facet>
+                            <f:facet name="output">
+                                <h:outputText value="#{l.dataInicial.time}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </f:facet>
                             <f:facet name="input"><p:inputText value="#{l.dataInicial}" style="width:100%" label="Dta inicial"/></f:facet>
                         </p:cellEditor>
                     </p:column>
                     <p:column headerText="Dta final">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{l.dataFinal}" /></f:facet>
+                            <f:facet name="output">
+                                <h:outputText value="#{l.dataFinal.time}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </f:facet>
                             <f:facet name="input"><p:inputText value="#{l.dataFinal}" style="width:100%" label="Dta final"/></f:facet>
                         </p:cellEditor>
                     </p:column>
