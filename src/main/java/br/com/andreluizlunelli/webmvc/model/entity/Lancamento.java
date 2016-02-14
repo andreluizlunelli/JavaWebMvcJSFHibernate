@@ -1,7 +1,9 @@
 
 package br.com.andreluizlunelli.webmvc.model.entity;
 
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name="Lancamento.findAll", query="SELECT c FROM Lancamento c"),
     @NamedQuery(name = "Lancamento.find", query = "SELECT i FROM Lancamento i WHERE i.id = ?")
 })
-public class Lancamento {
+public class Lancamento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -83,5 +85,43 @@ public class Lancamento {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(this.dataInicial);
+        hash = 83 * hash + Objects.hashCode(this.dataFinal);
+        hash = 83 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
+        hash = 83 * hash + Objects.hashCode(this.observacao);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Lancamento other = (Lancamento) obj;
+        if (Double.doubleToLongBits(this.valorTotal) != Double.doubleToLongBits(other.valorTotal)) {
+            return false;
+        }
+        if (!Objects.equals(this.observacao, other.observacao)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataInicial, other.dataInicial)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataFinal, other.dataFinal)) {
+            return false;
+        }
+        return true;
+    }
+
     
 }

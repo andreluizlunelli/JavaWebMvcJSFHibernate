@@ -11,10 +11,8 @@
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel value="Descrição : *" for="descricao"></h:outputLabel>
                     <p:inputText id="descricao" value="#{itemMB.item.descricao}" required="true"/>
-
                     <h:outputLabel value="Valor: *" for="valor"></h:outputLabel>
                     <p:inputText id="valor" value="#{itemMB.item.valor}" required="true"/>
-
                     <p:commandButton id="btn_reset" value="Limpar campos" type="reset"/>                            
                     <p:commandButton id="btn_novo" value="Gravar novo" type="submit" action="#{itemMB.salvarItem}" ajax="false" />
                 </h:panelGrid>
@@ -24,7 +22,6 @@
             <p:growl id="msgs" showDetail="true"/>
             <p:outputPanel id="panelItens">
                 <p:contextMenu for="lista1">
-
                     <p:menuitem value="Excluir" update="lista1" icon="ui-icon-close" actionListener="#{itemMB.excluirItem}"/>
                 </p:contextMenu>
                 <p:dataTable id="lista1"
@@ -45,7 +42,7 @@
                     </f:facet>
                     <p:ajax event="rowEdit" listener="#{itemMB.onEditarLinha}" update=":form:msgs" />
                     <p:ajax event="rowEditCancel" listener="#{itemMB.onCancelarEdicaoLinha}" update=":form:msgs" />
-                    <p:column headerText="Id">
+                    <p:column headerText="Id" style="width:6%">
                         <f:facet name="header">#</f:facet>
                             #{i.id}                            
                     </p:column>

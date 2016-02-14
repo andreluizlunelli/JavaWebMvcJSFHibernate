@@ -81,7 +81,6 @@ public class ItemMB {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro no cadastro, tente mais tarde.", null);
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
-//        return "listar";
     }
 
     public String reiniciarPanel() {

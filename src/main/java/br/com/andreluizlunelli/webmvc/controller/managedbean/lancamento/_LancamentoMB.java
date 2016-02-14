@@ -21,7 +21,7 @@ import javax.faces.bean.ManagedBean;
  * @author ANDRE
  */
 @ManagedBean
-public class ListarLancamentoMB {    
+public class _LancamentoMB {    
     public class ListaLancamentoParserView {    
         public class LancamentoParserView {
             private long id;
