@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./../modelo.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h:form id="formSalvar">
+            <p:panel header="Novo item" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel value="Descrição : *" for="descricao"></h:outputLabel>
+                    <p:inputText id="descricao" value="#{itemMB.item.descricao}" required="true"/>
+                    <h:outputLabel value="Valor: *" for="valor"></h:outputLabel>
+                    <p:inputText id="valor" value="#{itemMB.item.valor}" required="true"/>
+                    <p:commandButton id="btn_reset" value="Limpar campos" type="reset"/>                            
+                    <p:commandButton id="btn_novo" value="Gravar novo" type="submit" action="#{itemMB.salvarItem}" ajax="false" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+            <p:outputPanel id="panelItens">
+                <p:contextMenu for="lista1">
+                    <p:menuitem value="Excluir" update="lista1" icon="ui-icon-close" actionListener="#{itemMB.excluirItem}"/>
+                </p:contextMenu>
+                <p:dataTable id="lista1"
+                             var="i" 
+                             value="#{itemMB.listaItens}" 
+                             editable="true" 
+                             style="margin-bottom:20px"
+                             paginator="true" rows="10"
+                             paginatorAlwaysVisible="false"
+                             paginatorPosition="bottom"
+                             emptyMessage="Nada cadastrado..."
+                             rowKey="#{i.id}"                                                                         
+                             sortBy="#{i.id}"
+                             sortOrder="DESCENDING"
+                             >
+                    <f:facet name="header">
+                        Registros
+                    </f:facet>
+                    <p:ajax event="rowEdit" listener="#{itemMB.onEditarLinha}" update=":form:msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{itemMB.onCancelarEdicaoLinha}" update=":form:msgs" />
+                    <p:column headerText="Id" style="width:6%">
+                        <f:facet name="header">#</f:facet>
+                            #{i.id}                            
+                    </p:column>
+                    <p:column headerText="Descrição">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{i.descricao}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{i.descricao}" style="width:100%" label="Descrição"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Valor">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{i.valor}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{i.valor}" style="width:100%" label="Valor" /></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Editar" style="width:6%">                                
+                        <p:rowEditor />                                                                      
+                    </p:column> 
+                    <p:column headerText="Excluir" style="width:6%">                                
+                        <p:commandButton  value="x" action="#{itemMB.excluirItem(i)}" onclick="return confirm('Confirma a exclusão?');" ajax="false" />
+                    </p:column>
+                </p:dataTable>
+            </p:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+
+
