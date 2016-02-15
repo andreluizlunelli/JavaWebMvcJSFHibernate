@@ -74,7 +74,7 @@ public class LancamentoMB {
         Lancamento editado = (Lancamento) event.getObject();
         try {
             lancamentoDao.save(editado);
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Lançamento editado", (String.valueOf((lancamento.getId()))));
+            msg = new FacesMessage("Lançamento editado");
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro na edição, tente mais tarde.", (String.valueOf((editado.getId()))));
         }
