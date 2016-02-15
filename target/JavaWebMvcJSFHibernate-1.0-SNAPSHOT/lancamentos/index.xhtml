@@ -9,10 +9,14 @@
         <h:form id="formSalvar">
             <p:panel header="Novo item" style="margin-bottom:20px">
                 <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputLabel value="Dta inicial: *" for="dtaInicial"></h:outputLabel>
-                    <p:inputText id="dtaInicial" value="#{lancamentoMB.lancamento.dataInicial}" required="true"/>
+                    <h:outputLabel value="Dta inicial: *" for="dtaInicial"></h:outputLabel>                    
+                    <p:calendar id="dtaInicial" value="#{lancamentoMB.lancamento.dataInicial}" pattern="dd/MM/yyyy" style="width:100%" label="Dta inicial">
+                        <f:convertDateTime type="both" pattern="dd/MM/yyyy" />
+                    </p:calendar>
                     <h:outputLabel value="Dta final: *" for="dtaFinal"></h:outputLabel>
-                    <p:inputText id="dtaFinal" value="#{lancamentoMB.lancamento.dataFinal}" required="true"/>
+                    <p:calendar id="dtaFinal" value="#{lancamentoMB.lancamento.dataFinal}" pattern="dd/MM/yyyy" style="width:100%" label="Dta final">
+                        <f:convertDateTime type="both" pattern="dd/MM/yyyy" />
+                    </p:calendar>                    
                     <h:outputLabel value="Valor total: *" for="valorTotal"></h:outputLabel>
                     <p:inputText id="valorTotal" value="#{lancamentoMB.lancamento.valorTotal}" required="true"/>
                     <h:outputLabel value="Observação: *" for="observacao"></h:outputLabel>
@@ -94,7 +98,7 @@
                         <p:rowEditor />                                                                      
                     </p:column> 
                     <p:column headerText="Excluir" style="width:6%">                                
-                        <p:commandButton  value="x" action="#{lancamentoMB.excluirItem(l)}" onclick="return confirm('Confirma a exclusão?');" ajax="false" />
+                        <p:commandButton  value="&times;" action="#{lancamentoMB.excluirItem(l)}" onclick="return confirm('Confirma a exclusão?');" ajax="false" />
                     </p:column>
                 </p:dataTable>
             </p:outputPanel>
