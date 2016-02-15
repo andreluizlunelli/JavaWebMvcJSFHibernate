@@ -58,7 +58,7 @@
                                 </h:outputText>
                             </f:facet>
                             <f:facet name="input">                                
-                                <p:calendar id="popup" value="#{l.dataInicial}" pattern="dd/MM/yyyy" style="width:100%" label="Dta inicial">
+                                <p:calendar id="popupCalendarInicial" value="#{l.dataInicial}" pattern="dd/MM/yyyy" style="width:100%" label="Dta inicial">
                                     <f:convertDateTime type="both" pattern="dd/MM/yyyy" />
                                 </p:calendar>
                             </f:facet>
@@ -67,14 +67,14 @@
                     <p:column headerText="Dta final">
                         <p:cellEditor>
                             <f:facet name="output">
-                                <h:outputText value="#{l.dataFinal}">
+                                <h:outputText value="#{l.dataFinal}" style="width:100%" >
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </f:facet>
                             <f:facet name="input">
-                                <p:inputText value="#{l.dataFinal}" style="width:100%" label="Dta final">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </p:inputText>
+                                <p:calendar id="popupCalendarFinal" value="#{l.dataFinal}" pattern="dd/MM/yyyy" style="width:100%" label="Dta inicial">
+                                    <f:convertDateTime type="both" pattern="dd/MM/yyyy" />
+                                </p:calendar>
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
