@@ -7,11 +7,7 @@ package br.com.andreluizlunelli.webmvc.controller.managedbean.lancamento;
 
 import br.com.andreluizlunelli.webmvc.model.dao.LancamentoDao;
 import br.com.andreluizlunelli.webmvc.model.entity.Lancamento;
-import br.com.andreluizlunelli.webmvc.view.util.ViewUtil;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -61,7 +57,7 @@ public class LancamentoMB {
         try {
             lancamentoDao.save(lancamento);
             lancamento = new Lancamento();
-            msg = new FacesMessage("Cadastro", "Lançamento cadastrado com sucesso");
+            msg = new FacesMessage("", "Lançamento cadastrado com sucesso");
 //            this.setListaItens(null);
 //            this.getListaItens();
         } catch (Exception e) {
@@ -74,7 +70,7 @@ public class LancamentoMB {
         Lancamento editado = (Lancamento) event.getObject();
         try {
             lancamentoDao.save(editado);
-            msg = new FacesMessage("Lançamento editado");
+            msg = new FacesMessage("", "Lançamento editado");
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro na edição, tente mais tarde.", (String.valueOf((editado.getId()))));
         }
@@ -93,7 +89,7 @@ public class LancamentoMB {
                 lancamentoDao.delete(l);
                 listaLancamento.remove(l);                
                 lancamento = new Lancamento();
-                msg = new FacesMessage("Exclusão", "Lançamento excluído com sucesso");
+                msg = new FacesMessage("", "Lançamento excluído com sucesso");
             }
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro no cadastro, tente mais tarde.", null);

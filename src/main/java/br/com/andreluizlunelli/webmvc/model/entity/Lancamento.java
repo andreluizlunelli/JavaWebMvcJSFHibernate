@@ -3,6 +3,7 @@ package br.com.andreluizlunelli.webmvc.model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,11 +35,11 @@ public class Lancamento implements Serializable {
 
     @Column(name = "dt_inicial", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar dataInicial;
+    private Date dataInicial;
 
     @Column(name = "dt_final", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar dataFinal;
+    private Date dataFinal;
 
     @Column(name = "vl_total", nullable = true)
     private double valorTotal;
@@ -54,21 +55,21 @@ public class Lancamento implements Serializable {
         this.id = id;
     }
 
-    public Calendar getDataInicial() {
+    public Date getDataInicial() {
         return dataInicial;
     }
 
-    public void setDataInicial(Calendar dataInicial) {
+    public void setDataInicial(Date dataInicial) {
         this.dataInicial = dataInicial;
     }
 
-    public Calendar getDataFinal() {
+    public Date getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(Calendar dataFinal) {
+    public void setDataFinal(Date dataFinal) {
         this.dataFinal = dataFinal;
-    }
+    }   
 
     public double getValorTotal() {
         return valorTotal;
@@ -88,11 +89,12 @@ public class Lancamento implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + Objects.hashCode(this.dataInicial);
-        hash = 83 * hash + Objects.hashCode(this.dataFinal);
-        hash = 83 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
-        hash = 83 * hash + Objects.hashCode(this.observacao);
+        int hash = 7;
+        hash = 47 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 47 * hash + Objects.hashCode(this.dataInicial);
+        hash = 47 * hash + Objects.hashCode(this.dataFinal);
+        hash = 47 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
+        hash = 47 * hash + Objects.hashCode(this.observacao);
         return hash;
     }
 
@@ -108,6 +110,9 @@ public class Lancamento implements Serializable {
             return false;
         }
         final Lancamento other = (Lancamento) obj;
+        if (this.id != other.id) {
+            return false;
+        }
         if (Double.doubleToLongBits(this.valorTotal) != Double.doubleToLongBits(other.valorTotal)) {
             return false;
         }
@@ -123,5 +128,6 @@ public class Lancamento implements Serializable {
         return true;
     }
 
+   
     
 }
