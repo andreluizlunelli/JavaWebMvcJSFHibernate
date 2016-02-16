@@ -7,7 +7,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="content">
         <h:form id="formSalvar">
-            <p:panel header="Novo item" style="margin-bottom:20px">
+            <p:panel header="Novo lançamento"  style="margin-bottom:20px">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel value="Dta inicial: *" for="dtaInicial"></h:outputLabel>                    
                     <p:calendar id="dtaInicial" value="#{lancamentoMB.lancamento.dataInicial}" pattern="dd/MM/yyyy" style="width:100%" label="Dta inicial">
@@ -16,13 +16,30 @@
                     <h:outputLabel value="Dta final: *" for="dtaFinal"></h:outputLabel>
                     <p:calendar id="dtaFinal" value="#{lancamentoMB.lancamento.dataFinal}" pattern="dd/MM/yyyy" style="width:100%" label="Dta final">
                         <f:convertDateTime type="both" pattern="dd/MM/yyyy" />
-                    </p:calendar>                    
-                    <h:outputLabel value="Valor total: *" for="valorTotal"></h:outputLabel>
-                    <p:inputText id="valorTotal" value="#{lancamentoMB.lancamento.valorTotal}" required="true"/>
+                    </p:calendar>                                        
                     <h:outputLabel value="Observação: *" for="observacao"></h:outputLabel>
                     <p:inputText id="observacao" value="#{lancamentoMB.lancamento.observacao}" required="true"/>
+                    
+                    <!--pesquisa-->
+                    <p:autoComplete id="pesquisaItem" 
+                                        multiple="true" 
+                                        var="itemSelecionado" 
+                                        converter="itemConverter"
+                                        value="#{lancamentoMB.listaItensEscolhidos}" 
+                                        completeMethod="#{lancamentoMB.completeMethodItem}"
+                                        itemLabel="#{itemSelecionado.descricao}" 
+                                        itemValue="#{itemSelecionado}" 
+                                        forceSelection="true">
+                            <p:column style="width:10%">
+                                <h:outputText styleClass="ui-theme" value="#{itemSelecionado.id}" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{itemSelecionado.descricao}" />
+                            </p:column>
+                    </p:autoComplete>
+                    
                     <p:commandButton id="btn_reset" value="Limpar campos" type="reset"/>                            
-                    <p:commandButton id="btn_novo" value="Gravar novo" type="submit" action="#{lancamentoMB.salvarLancamento}" ajax="false" />
+                    <p:commandButton id="btn_novo" value="Gravar novo" type="submit" action="#{lancamentoMB.salvarLancamento}" ajax="false" />                    
                 </h:panelGrid>
             </p:panel>
         </h:form>
@@ -53,6 +70,8 @@
                     <p:column headerText="Id" style="width:6%">
                         <f:facet name="header">#</f:facet>
                             #{l.id}                            
+                    </p:column>
+                    <p:column headerText="Itens">
                     </p:column>
                     <p:column headerText="Dta inicial">
                         <p:cellEditor>
