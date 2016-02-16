@@ -5,10 +5,13 @@
  */
 package br.com.andreluizlunelli.webmvc.controller.converter;
 
+import br.com.andreluizlunelli.webmvc.model.dao.ItemDao;
 import br.com.andreluizlunelli.webmvc.model.entity.Item;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 /**
@@ -20,14 +23,13 @@ public class ItemConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value != null && value.trim().length() > 0) {
-            int a = 1;
-//            try {
-//                ThemeService service = (ThemeService) fc.getExternalContext().getApplicationMap().get("themeService");
-//                return service.getThemes().get(Integer.parseInt(value));
-//            } catch(NumberFormatException e) {
-//                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
-//            }
+        if (value != null && value.trim().length() > 0) {            
+            try {
+                ItemDao itemDao = new ItemDao();
+                return itemDao.get(Integer.parseInt(value));
+            } catch(NumberFormatException e) {
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de conversão", ""));
+            }
         } else {
         }
         return null;
