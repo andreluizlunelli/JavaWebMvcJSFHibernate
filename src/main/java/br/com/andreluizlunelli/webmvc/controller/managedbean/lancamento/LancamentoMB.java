@@ -33,7 +33,7 @@ public class LancamentoMB {
     private String valorAutoCompleteSelecionado = "";
 
     //========= pesquisa
-    private List<Item> listaItensEscolhidos;
+    private List<Item> listaItensEscolhidos; // esse aqui tem que ser a lista da entidade
     private List<Item> listaItens = null;
     private ItemDao itemDao;
 
@@ -119,6 +119,9 @@ public class LancamentoMB {
 
     public void onEditarLinha(RowEditEvent event) {
         Lancamento editado = (Lancamento) event.getObject();
+        List<Item> tempListaItens = editado.getListaItens();
+        editado.setListaItens(new ArrayList<Item>());
+        editado.setListaItens(tempListaItens);
         try {
             lancamentoDao.save(editado);
             msg = new FacesMessage("", "Lançamento editado");

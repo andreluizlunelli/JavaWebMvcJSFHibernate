@@ -59,11 +59,12 @@
                                                 multiple="true" 
                                                 var="itemSelecionado" 
                                                 converter="itemConverter"
-                                                value="#{lancamentoMB.listaItensEscolhidos}" 
+                                                value="#{l.listaItens}" 
                                                 completeMethod="#{lancamentoMB.completeMethodItem}"
                                                 itemLabel="#{itemSelecionado.descricao}" 
                                                 itemValue="#{itemSelecionado}" 
-                                                forceSelection="true">
+                                                forceSelection="true"                                                
+                                                >
                                     <p:column style="width:10%">
                                         <h:outputText styleClass="ui-theme" value="#{itemSelecionado.id}" />
                                     </p:column>
