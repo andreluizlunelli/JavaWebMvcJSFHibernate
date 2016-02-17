@@ -5,8 +5,11 @@
  */
 package br.com.andreluizlunelli.webmvc.controller.managedbean.lancamento;
 
+import br.com.andreluizlunelli.webmvc.model.dao.ItemDao;
 import br.com.andreluizlunelli.webmvc.model.dao.LancamentoDao;
+import br.com.andreluizlunelli.webmvc.model.entity.Item;
 import br.com.andreluizlunelli.webmvc.model.entity.Lancamento;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -27,12 +30,60 @@ public class LancamentoMB {
     private LancamentoDao lancamentoDao;
     private Lancamento lancamento;
     private static List<Lancamento> listaLancamento;
+    private String valorAutoCompleteSelecionado = "";
 
+    //========= pesquisa
+    private List<Item> listaItensEscolhidos;
+    private List<Item> listaItens = null;
+    private ItemDao itemDao;
+
+    public List<Item> getListaItensEscolhidos() {
+        return listaItensEscolhidos;
+    }
+
+    public void setListaItensEscolhidos(List<Item> listaItensEscolhidos) {
+        this.listaItensEscolhidos = listaItensEscolhidos;
+    }
+
+    public List<Item> completeMethodItem(String pesquisa) {
+        pesquisa = pesquisa.toLowerCase();
+        List<Item> todosItens = getListaItens();
+        List<Item> itensFiltrados = new ArrayList();
+        for (Item i : todosItens) {
+            String descricao = i.getDescricao();
+            descricao = descricao.toLowerCase();
+            if (descricao.startsWith(pesquisa)) {
+                itensFiltrados.add(i);                                    
+            }
+        }
+        return itensFiltrados;
+    }
+
+    public List<Item> getListaItens() {
+        if (listaItens == null) {
+            listaItens = itemDao.getAll();
+        }
+        return listaItens;
+    }
+    
+
+    //=========
     @PostConstruct
     public void init() {
-        lancamentoDao = new LancamentoDao();
-        lancamento = new Lancamento();
-    }              
+        listaLancamento = null;
+        itemDao = new ItemDao();
+        lancamentoDao = new LancamentoDao();                
+        lancamento = new Lancamento();        
+        listaItensEscolhidos = new ArrayList<>();
+    }
+
+    public String getValorAutoCompleteSelecionado() {
+        return valorAutoCompleteSelecionado;
+    }
+
+    public void setValorAutoCompleteSelecionado(String valorAutoCompleteSelecionado) {
+        this.valorAutoCompleteSelecionado = valorAutoCompleteSelecionado;
+    }
 
     public List<Lancamento> getListaLancamento() {
         if (listaLancamento == null) {
@@ -42,8 +93,8 @@ public class LancamentoMB {
     }
 
     public void setListaLancamento(List<Lancamento> listaLancamento) {
-        listaLancamento = listaLancamento;
-    }        
+        this.listaLancamento = listaLancamento;
+    }
 
     public Lancamento getLancamento() {
         return lancamento;
@@ -58,15 +109,15 @@ public class LancamentoMB {
             lancamentoDao.save(lancamento);
             lancamento = new Lancamento();
             msg = new FacesMessage("", "Lançamento cadastrado com sucesso");
-//            this.setListaItens(null);
-//            this.getListaItens();
+            this.setListaLancamento(null);
+            this.getListaLancamento();
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro no cadastro, tente mais tarde.", null);
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
-    public void onEditarLinha(RowEditEvent event) {        
+
+    public void onEditarLinha(RowEditEvent event) {
         Lancamento editado = (Lancamento) event.getObject();
         try {
             lancamentoDao.save(editado);
@@ -82,12 +133,12 @@ public class LancamentoMB {
         msg = new FacesMessage("Edição cancelada", (String.valueOf((editado.getId()))));
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-        
+
     public void excluirItem(Lancamento l) {
         try {
             if (listaLancamento.contains(l)) {
                 lancamentoDao.delete(l);
-                listaLancamento.remove(l);                
+                listaLancamento.remove(l);
                 lancamento = new Lancamento();
                 msg = new FacesMessage("", "Lançamento excluído com sucesso");
             }
@@ -96,5 +147,5 @@ public class LancamentoMB {
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
 }

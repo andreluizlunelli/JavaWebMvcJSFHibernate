@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "item")
 @NamedQueries({
     @NamedQuery(name = "Item.findAll", query = "SELECT c FROM Item c"),
-    @NamedQuery(name = "Item.find", query = "SELECT i FROM Item i WHERE i.id = ?")
+    @NamedQuery(name = "Item.find", query = "SELECT i FROM Item i WHERE i.id = :id")
 })
 public class Item implements Serializable {
 

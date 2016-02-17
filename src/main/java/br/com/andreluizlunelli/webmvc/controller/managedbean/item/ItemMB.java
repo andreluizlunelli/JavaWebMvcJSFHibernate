@@ -57,7 +57,7 @@ public class ItemMB {
         Item itemEditado = (Item) event.getObject();
         try {
             itemDao.save(itemEditado);
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item editado", (String.valueOf((itemEditado.getId()))));
+            msg = new FacesMessage("", "Item editado");
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro na edição, tente mais tarde.", (String.valueOf((itemEditado.getId()))));
         }
@@ -74,7 +74,7 @@ public class ItemMB {
         try {
             itemDao.save(item);
             item = new Item();
-            msg = new FacesMessage("Cadastro", "Item cadastrado com sucesso");
+            msg = new FacesMessage("", "Item cadastrado com sucesso");
             this.setListaItens(null);
             this.getListaItens();
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class ItemMB {
                 itemDao.delete(i);
                 listaItens.remove(i);
                 item = new Item();
-                msg = new FacesMessage("Exclusão", "Item excluído com sucesso");
+                msg = new FacesMessage("", "Item excluído com sucesso");
             }
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro no cadastro, tente mais tarde.", null);
