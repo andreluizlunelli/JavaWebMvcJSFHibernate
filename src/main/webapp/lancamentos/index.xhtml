@@ -74,10 +74,9 @@
                                 </p:autoComplete>                                
                             </f:facet>
                             <f:facet name="output">
-                                <ui:repeat var="tempItem" varStatus="loop" value="#{l.listaItens}">
+                                <ui:repeat var="tempItem" varStatus="loop" value="#{l.listaItens}">                                
                                     #{tempItem.descricao}&nbsp;
                                 </ui:repeat>
-                                <!--<p:inputText converter="itemConverter" value="# {l.listaItens}" style="width:100%" label="Itens do faturamento" disabled="true" />-->
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
