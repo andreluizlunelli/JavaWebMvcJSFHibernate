@@ -59,8 +59,8 @@ public class Lancamento implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "lancamento_item"
-            , joinColumns = @JoinColumn(name = "lancamento.oid")
-            , inverseJoinColumns = @JoinColumn(name = "item.oid")
+            , joinColumns = @JoinColumn(name = "lancamento_oid")
+            , inverseJoinColumns = @JoinColumn(name = "item_oid")
     )
     private List<Item> listaItens;
 
