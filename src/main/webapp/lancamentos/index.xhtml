@@ -18,26 +18,7 @@
                         <f:convertDateTime type="both" pattern="dd/MM/yyyy" />
                     </p:calendar>                                        
                     <h:outputLabel value="Observação: *" for="observacao"></h:outputLabel>
-                    <p:inputText id="observacao" value="#{lancamentoMB.lancamento.observacao}" required="true"/>
-                    
-                    <!--pesquisa-->
-                    <p:autoComplete id="pesquisaItem" 
-                                        multiple="true" 
-                                        var="itemSelecionado" 
-                                        converter="itemConverter"
-                                        value="#{lancamentoMB.listaItensEscolhidos}" 
-                                        completeMethod="#{lancamentoMB.completeMethodItem}"
-                                        itemLabel="#{itemSelecionado.descricao}" 
-                                        itemValue="#{itemSelecionado}" 
-                                        forceSelection="true">
-                            <p:column style="width:10%">
-                                <h:outputText styleClass="ui-theme" value="#{itemSelecionado.id}" />
-                            </p:column>
-                            <p:column>
-                                <h:outputText value="#{itemSelecionado.descricao}" />
-                            </p:column>
-                    </p:autoComplete>
-                    
+                    <p:inputText id="observacao" value="#{lancamentoMB.lancamento.observacao}" required="true"/>                                        
                     <p:commandButton id="btn_reset" value="Limpar campos" type="reset"/>                            
                     <p:commandButton id="btn_novo" value="Gravar novo" type="submit" action="#{lancamentoMB.salvarLancamento}" ajax="false" />                    
                 </h:panelGrid>
@@ -72,6 +53,24 @@
                             #{l.id}                            
                     </p:column>
                     <p:column headerText="Itens">
+                        <p:cellEditor>
+                            <p:autoComplete id="pesquisaItem" 
+                                            multiple="true" 
+                                            var="itemSelecionado" 
+                                            converter="itemConverter"
+                                            value="#{lancamentoMB.listaItensEscolhidos}" 
+                                            completeMethod="#{lancamentoMB.completeMethodItem}"
+                                            itemLabel="#{itemSelecionado.descricao}" 
+                                            itemValue="#{itemSelecionado}" 
+                                            forceSelection="true">
+                                <p:column style="width:10%">
+                                    <h:outputText styleClass="ui-theme" value="#{itemSelecionado.id}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{itemSelecionado.descricao}" />
+                                </p:column>
+                            </p:autoComplete>
+                        </p:cellEditor>
                     </p:column>
                     <p:column headerText="Dta inicial">
                         <p:cellEditor>
