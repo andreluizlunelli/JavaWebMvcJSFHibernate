@@ -11,11 +11,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -23,6 +26,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
@@ -55,12 +59,21 @@ public class Lancamento implements Serializable {
     @Column(name = "observacao", nullable = true)
     private String observacao;
             
-//    @Transient
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "lancamento_item"
-            , joinColumns = @JoinColumn(name = "lancamento_oid")
-            , inverseJoinColumns = @JoinColumn(name = "item_oid")
+            name = "lancamento_item"        
+            , indexes = {
+                @Index(name = "fk_lancamento_item_lancamento_idx"
+                    , columnList = "lancamento_oid"
+                    , unique = false)
+                , @Index(name = "fk_lancamento_item_item1_idx"
+                    , columnList = "item_oid"
+                    , unique = false)
+            }
+            , joinColumns = @JoinColumn(name = "lancamento_oid"                    
+                    , referencedColumnName = "oid")
+            , inverseJoinColumns = @JoinColumn(name = "item_oid"                    
+                    , referencedColumnName = "oid")            
     )
     private List<Item> listaItens;
 
@@ -125,9 +138,11 @@ public class Lancamento implements Serializable {
     
     private double calcularValorTotal(List<Item> items) {        
         double valorTotalCalculado = 0;
-        for (Item i : items) {
-            double valor = i.getValor();            
-            valorTotalCalculado = valorTotalCalculado + valor;
+        if (items != null) {
+            for (Item i : items) {
+                double valor = i.getValor();            
+                valorTotalCalculado = valorTotalCalculado + valor;
+            }            
         }
         return valorTotalCalculado;
     }

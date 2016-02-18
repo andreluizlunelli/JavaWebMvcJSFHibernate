@@ -4,7 +4,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"                
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="content">
         <h:form id="formSalvar">
             <p:panel header="Novo lançamento"  style="margin-bottom:20px">
@@ -56,6 +57,7 @@
                         <p:cellEditor>
                             <f:facet name="input">
                                 <p:autoComplete id="pesquisaItem" 
+                                                required="false"
                                                 multiple="true" 
                                                 var="itemSelecionado" 
                                                 converter="itemConverter"
@@ -63,7 +65,8 @@
                                                 completeMethod="#{lancamentoMB.completeMethodItem}"
                                                 itemLabel="#{itemSelecionado.descricao}" 
                                                 itemValue="#{itemSelecionado}" 
-                                                forceSelection="true"                                                
+                                                forceSelection="true"      
+                                                
                                                 >
                                     <p:column style="width:10%">
                                         <h:outputText styleClass="ui-theme" value="#{itemSelecionado.id}" />
@@ -73,20 +76,20 @@
                                     </p:column>
                                 </p:autoComplete>                                
                             </f:facet>
-                            <f:facet name="output">
-                                <ui:repeat var="tempItem" varStatus="loop" value="#{l.listaItens}">                                
+                            <f:facet name="output">                                
+                                <ui:repeat rendered="#{not empty l.listaItens}" var="tempItem" varStatus="loop" value="#{l.listaItens}" >                                
                                     #{tempItem.descricao}&nbsp;
                                 </ui:repeat>
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Valor total">
+                    <p:column headerText="Valor total" style="width: 90px">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{l.valorTotal}" /></f:facet>
                             <f:facet name="input"><p:inputText value="#{l.valorTotal}" style="width:100%" label="Valor total" /></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Dta inicial">
+                    <p:column headerText="Dta inicial" style="width: 90px">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{l.dataInicial}">
@@ -100,7 +103,7 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Dta final">
+                    <p:column headerText="Dta final" style="width: 90px">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{l.dataFinal}" style="width:100%" >

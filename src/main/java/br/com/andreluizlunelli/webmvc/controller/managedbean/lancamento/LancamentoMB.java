@@ -37,6 +37,15 @@ public class LancamentoMB {
     private List<Item> listaItens = null;
     private ItemDao itemDao;
 
+    @PostConstruct
+    public void init() {
+        listaLancamento = null;
+        itemDao = new ItemDao();
+        lancamentoDao = new LancamentoDao();                
+        lancamento = new Lancamento();        
+        listaItensEscolhidos = new ArrayList<>();
+    }
+
     public List<Item> getListaItensEscolhidos() {
         return listaItensEscolhidos;
     }
@@ -65,17 +74,7 @@ public class LancamentoMB {
         }
         return listaItens;
     }
-    
-
-    //=========
-    @PostConstruct
-    public void init() {
-        listaLancamento = null;
-        itemDao = new ItemDao();
-        lancamentoDao = new LancamentoDao();                
-        lancamento = new Lancamento();        
-        listaItensEscolhidos = new ArrayList<>();
-    }
+        
 
     public String getValorAutoCompleteSelecionado() {
         return valorAutoCompleteSelecionado;
