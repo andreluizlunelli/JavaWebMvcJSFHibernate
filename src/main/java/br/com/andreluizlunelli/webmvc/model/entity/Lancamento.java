@@ -27,6 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -41,9 +42,11 @@ import javax.persistence.UniqueConstraint;
 public class Lancamento implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)    
+    @GeneratedValue(generator = "idLancamento")
+    @GenericGenerator(name = "idLancamento", strategy = "increment")
     @Column(name = "oid")
     private long id;
+
 
     @Column(name = "dt_inicial", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
