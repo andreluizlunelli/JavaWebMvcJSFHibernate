@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -25,7 +26,8 @@ import javax.persistence.Table;
 public class Item implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "idItem")
+    @GenericGenerator(name = "idItem", strategy = "increment")
     @Column(name = "oid")
     private long id;
 

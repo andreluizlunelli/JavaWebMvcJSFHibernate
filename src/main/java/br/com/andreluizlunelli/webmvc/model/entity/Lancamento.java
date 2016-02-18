@@ -41,7 +41,7 @@ import javax.persistence.UniqueConstraint;
 public class Lancamento implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)    
     @Column(name = "oid")
     private long id;
 
@@ -59,7 +59,7 @@ public class Lancamento implements Serializable {
     @Column(name = "observacao", nullable = true)
     private String observacao;
             
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "lancamento_item"        
             , indexes = {
