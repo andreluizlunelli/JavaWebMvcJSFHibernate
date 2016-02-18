@@ -47,7 +47,6 @@ public class Lancamento implements Serializable {
     @Column(name = "oid")
     private long id;
 
-
     @Column(name = "dt_inicial", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInicial;

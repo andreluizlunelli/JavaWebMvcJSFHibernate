@@ -132,7 +132,7 @@ public class LancamentoMB {
 
     public void onCancelarEdicaoLinha(RowEditEvent event) {
         Lancamento editado = (Lancamento) event.getObject();
-        msg = new FacesMessage("Edição cancelada", (String.valueOf((editado.getId()))));
+        msg = new FacesMessage("", "Edição cancelada");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
