@@ -5,42 +5,47 @@
  */
 package br.com.andreluizlunelli.webmvc.controller;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+/**
+ *
+ * @author ANDRE
+ */
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author ANDRE
  */
 public class Primos {
-    public static void main(String[] args) {
-        int[] l = new int[4];
-        l[0] = 5;
-        l[1] = 7;
-        l[2] = 8;
-        l[3] = 3;
-        Primos primos = new Primos();
-        primos.imprimirNumeros(l);
-        // try {
-        // } catch (PesquisaPrimosInvalida ex) {
-        //     Logger.getLogger(Primos.class.getName()).log(Level.SEVERE, null, ex);
-        // }
-    }
-    
+
     private int inicio;
     private int fim;
-    
-    private int[] pesquisarNumerosPrimos(int faixaInicio, int faixaFim) {
-        return null;
+
+    private List<Integer> pesquisarNumerosPrimos(int faixaInicio, int faixaFim) {
+        List<Integer> numerosPrimos = new ArrayList<>();
+        for (int numero = faixaInicio; numero <= faixaFim; numero++) {
+            for (int i = 2; i <= numero; i++) {
+                if (i == numero) {
+                    numerosPrimos.add(numero);
+                } else if (numero % i == 0) {
+                    break;
+                }
+            }
+        }
+        return numerosPrimos;
     }
-    
-    // private void imprimirNumeros(int[] primos) throws PesquisaPrimosInvalida {
-    private void imprimirNumeros(int[] primos) {
-        if (primos == null && primos.length < 1) {
-            return;
+
+    private void imprimirNumeros(List<Integer> primos) {
+        for (Integer primo : primos) {
+            System.out.println(String.format("%d", primo.intValue()));
         }
-        for (int primo : primos) {
-            System.out.println(String.format("%i\n", primo));
-        }
+    }
+
+    public static void main(String[] args) {
+        Primos primos = new Primos();
+        int inicio = 41;
+        int fim = 5002;
+        List<Integer> listaNumerosPrimos = primos.pesquisarNumerosPrimos(inicio, fim);
+        primos.imprimirNumeros(listaNumerosPrimos);
     }
 }
