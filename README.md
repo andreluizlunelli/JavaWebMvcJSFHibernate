@@ -6,3 +6,8 @@ MVC basico em Java
 * Mysql
 * JSF-Primefaces
 * Hibernate
+
+### Instalação
+```
+$ mvn package
+```
