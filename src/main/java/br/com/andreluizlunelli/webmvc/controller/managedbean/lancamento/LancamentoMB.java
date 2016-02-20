@@ -5,6 +5,8 @@
  */
 package br.com.andreluizlunelli.webmvc.controller.managedbean.lancamento;
 
+import br.com.andreluizlunelli.webmvc.model.Lancamento.SelecionarLancamentosAlterarDescricao;
+import br.com.andreluizlunelli.webmvc.model.Lancamento.exceptions.LancamentoDaoVazio;
 import br.com.andreluizlunelli.webmvc.model.dao.ItemDao;
 import br.com.andreluizlunelli.webmvc.model.dao.LancamentoDao;
 import br.com.andreluizlunelli.webmvc.model.entity.Item;
@@ -41,9 +43,14 @@ public class LancamentoMB {
     public void init() {
         listaLancamento = null;
         itemDao = new ItemDao();
-        lancamentoDao = new LancamentoDao();                
-        lancamento = new Lancamento();        
+        lancamentoDao = new LancamentoDao();
+        lancamento = new Lancamento();
         listaItensEscolhidos = new ArrayList<>();
+    }
+
+    private void atualizarListaDaTabela() {
+        this.setListaLancamento(null);
+        this.getListaLancamento();
     }
 
     public List<Item> getListaItensEscolhidos() {
@@ -62,7 +69,7 @@ public class LancamentoMB {
             String descricao = i.getDescricao();
             descricao = descricao.toLowerCase();
             if (descricao.startsWith(pesquisa)) {
-                itensFiltrados.add(i);                                    
+                itensFiltrados.add(i);
             }
         }
         return itensFiltrados;
@@ -74,7 +81,6 @@ public class LancamentoMB {
         }
         return listaItens;
     }
-        
 
     public String getValorAutoCompleteSelecionado() {
         return valorAutoCompleteSelecionado;
@@ -149,5 +155,15 @@ public class LancamentoMB {
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
+    public void selecionarEAlterarDescricao() {
+        try {
+            SelecionarLancamentosAlterarDescricao slad = new SelecionarLancamentosAlterarDescricao(lancamentoDao);
+            slad.executar();
+            atualizarListaDaTabela();
+        } catch (LancamentoDaoVazio ex) {
+//            Logger.getLogger(LancamentoMB.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+    }
 }

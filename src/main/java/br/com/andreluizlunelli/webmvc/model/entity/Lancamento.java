@@ -3,7 +3,6 @@ package br.com.andreluizlunelli.webmvc.model.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -11,9 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
@@ -21,12 +18,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -36,8 +30,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "lancamento")
 @NamedQueries({
-    @NamedQuery(name = "Lancamento.findAll", query = "SELECT c FROM Lancamento c"),
-    @NamedQuery(name = "Lancamento.find", query = "SELECT i FROM Lancamento i WHERE i.id = :id")
+    @NamedQuery(name = "Lancamento.findAll", query = "SELECT l FROM Lancamento l")
+    , @NamedQuery(name = "Lancamento.find", query = "SELECT l FROM Lancamento l WHERE l.id = :id")       
 })
 public class Lancamento implements Serializable {
 
@@ -82,7 +76,7 @@ public class Lancamento implements Serializable {
     public Lancamento() {
         listaItens = new ArrayList<>(); 
         valorTotal = 0;
-    }        
+    }                   
 
     public long getId() {
         return id;
