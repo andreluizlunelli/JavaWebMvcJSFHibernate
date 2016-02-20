@@ -53,7 +53,8 @@ public class LancamentoDao extends BaseDAO implements Dao<Lancamento>{
                             "	group by l.oid" +
                             "	order by l.vl_total desc" +
                             ") T" +
-                            " where T.qtd > 10";
+                            " where T.qtd > 10" +
+                            " and T.observacao not like \"% - Possuem mais que 10 itens\";";
         Query query = getEntityManager().createNativeQuery(queryString);
         List<Lancamento> listaLancamentos = new ArrayList<>();
         List<Object> listaObjetos = query.getResultList();

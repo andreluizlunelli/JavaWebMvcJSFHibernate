@@ -76,7 +76,7 @@ public class LancamentoMB {
     }
 
     public List<Item> getListaItens() {
-        if (listaItens == null) {
+        if (listaItens == null) {            
             listaItens = itemDao.getAll();
         }
         return listaItens;
@@ -92,6 +92,7 @@ public class LancamentoMB {
 
     public List<Lancamento> getListaLancamento() {
         if (listaLancamento == null) {
+            lancamentoDao.getEntityManager().clear();
             listaLancamento = lancamentoDao.getAll();
         }
         return listaLancamento;
@@ -114,8 +115,7 @@ public class LancamentoMB {
             lancamentoDao.save(lancamento);
             lancamento = new Lancamento();
             msg = new FacesMessage("", "Lançamento cadastrado com sucesso");
-            this.setListaLancamento(null);
-            this.getListaLancamento();
+            atualizarListaDaTabela();
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ops, ocorreu algum erro no cadastro, tente mais tarde.", null);
         }
@@ -158,7 +158,8 @@ public class LancamentoMB {
 
     public void selecionarEAlterarDescricao() {
         try {
-            SelecionarLancamentosAlterarDescricao slad = new SelecionarLancamentosAlterarDescricao(lancamentoDao);
+            SelecionarLancamentosAlterarDescricao slad;
+            slad = new SelecionarLancamentosAlterarDescricao(lancamentoDao);
             slad.executar();
             atualizarListaDaTabela();
         } catch (LancamentoDaoVazio ex) {
