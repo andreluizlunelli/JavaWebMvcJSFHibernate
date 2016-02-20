@@ -1,4 +1,8 @@
 # JavaWebMvcJSFHibernate
 MVC basico em Java
 
-### Alterado projeto para usar maven
+### Técnologias utilizadas
+* Maven
+* Mysql
+* JSF-Primefaces
+* Hibernate
