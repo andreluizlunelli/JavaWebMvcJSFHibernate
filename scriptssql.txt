@@ -21,6 +21,15 @@ where LAN.media >= 100
 # sql: consulta: 11
 ###################
 
+select l.`*`
+from lancamento l 
+join lancamento_item li on (li.lancamento_oid = l.oid)
+join item i on (i.oid = li.item_oid)
+where l.observacao like "A%"
+and l.vl_total > 50
+group by l.oid
+order by l.vl_total desc
+limit 10
 
 #############
 # criar banco

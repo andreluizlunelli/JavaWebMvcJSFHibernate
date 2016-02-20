@@ -13,14 +13,14 @@ import br.com.andreluizlunelli.webmvc.model.singleton.EntityManagerSingleton;
  */
 public class BaseDAO {
     
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {        
         return EntityManagerSingleton.getInstance().getEntityManager();
     }
     
     protected Object executar(Object o, Operacao operacao) {
         
         EntityManager em = getEntityManager();
-        em.getTransaction().begin();
+        em.getTransaction().begin();        
         try {
             
             switch(operacao) {
