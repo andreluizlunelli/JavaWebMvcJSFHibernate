@@ -1,5 +1,5 @@
 # JavaWebMvcJSFHibernate
-MVC basico em Java
+MVC básico em Java
 
 ### Técnologias utilizadas
 * Maven
