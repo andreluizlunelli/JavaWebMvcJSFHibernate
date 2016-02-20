@@ -17,26 +17,20 @@ public class BaseDAO {
         return EntityManagerSingleton.getInstance().getEntityManager();
     }
     
-    protected Object executar(Object o, Operacao operacao) {
-        
+    protected Object executar(Object o, Operacao operacao) {        
         EntityManager em = getEntityManager();
         em.getTransaction().begin();        
-        try {
-            
-            switch(operacao) {
-                
+        try {            
+            switch(operacao) {                
                 case INSERIR: em.persist(o); break;
                 case SALVAR: o = em.merge(o); break;
-                case EXCLUIR: em.remove(em.merge(o)); break;
-                    
-            }
-            
+                case EXCLUIR: em.remove(em.merge(o)); break;                    
+            }            
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
             throw e;
-        }
-        
+        }        
         return o;
     }
     

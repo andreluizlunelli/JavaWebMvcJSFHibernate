@@ -91,7 +91,11 @@ public class LancamentoMB {
     }
 
     public List<Lancamento> getListaLancamento() {
+<<<<<<< HEAD
         if (listaLancamento == null) {            
+=======
+        if (listaLancamento == null) {
+>>>>>>> desenvolvimento
             listaLancamento = lancamentoDao.getAll();
         }
         return listaLancamento;
@@ -160,7 +164,11 @@ public class LancamentoMB {
             SelecionarLancamentosAlterarDescricao slad;
             slad = new SelecionarLancamentosAlterarDescricao(lancamentoDao);
             slad.executar();
+<<<<<<< HEAD
             lancamentoDao.getEntityManager().clear();
+=======
+            lancamentoDao.getEntityManager().clear(); // limpa o cache
+>>>>>>> desenvolvimento
             atualizarListaDaTabela();
         } catch (LancamentoDaoVazio ex) {
 //            Logger.getLogger(LancamentoMB.class.getName()).log(Level.SEVERE, null, ex);
