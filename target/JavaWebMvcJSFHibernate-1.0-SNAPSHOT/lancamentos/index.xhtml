@@ -19,9 +19,11 @@
                         <f:convertDateTime type="both" pattern="dd/MM/yyyy" />
                     </p:calendar>                                        
                     <h:outputLabel value="Observação: *" for="observacao"></h:outputLabel>
-                    <p:inputText id="observacao" value="#{lancamentoMB.lancamento.observacao}" required="true"/>                                        
+                    <p:inputText id="observacao" value="#{lancamentoMB.lancamento.observacao}" />                                        
                     <p:commandButton id="btn_reset" value="Limpar campos" type="reset"/>                            
                     <p:commandButton id="btn_novo" value="Gravar novo" type="submit" action="#{lancamentoMB.salvarLancamento}" ajax="false" />                    
+                    <!--a-->
+                    <p:commandButton id="btn_add_desc" type="submit" action="#{lancamentoMB.selecionarEAlterarDescricao}" ajax="false" value="Alterar descrição dez itens" title="Selecionar todos os lançamentos que possuam mais que 10 itens e alterar a observação observação atual com a seguinte texto (“- Possuem mais que 10 itens”)." />                    
                 </h:panelGrid>
             </p:panel>
         </h:form>
