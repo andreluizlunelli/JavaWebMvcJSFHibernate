@@ -92,7 +92,7 @@ public class LancamentoMB {
 
     public List<Lancamento> getListaLancamento() {
         if (listaLancamento == null) {
-            lancamentoDao.getEntityManager().clear();
+//            lancamentoDao.getEntityManager().clear();
             listaLancamento = lancamentoDao.getAll();
         }
         return listaLancamento;
